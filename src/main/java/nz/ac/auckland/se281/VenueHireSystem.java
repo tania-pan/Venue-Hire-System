@@ -1,14 +1,26 @@
 package nz.ac.auckland.se281;
 
+import java.util.ArrayList;
+
 import nz.ac.auckland.se281.Types.CateringType;
 import nz.ac.auckland.se281.Types.FloralType;
 
 public class VenueHireSystem {
 
-  public VenueHireSystem() {}
+  private ArrayList<String> venueList = new ArrayList<String>();
+
+  public VenueHireSystem() {
+
+  }
 
   public void printVenues() {
-    // TODO implement this method
+    if (venueList.isEmpty()) {
+      MessageCli.NO_VENUES.printMessage();
+    } else {
+      for (String venue : venueList) {
+        System.out.println(venue);
+      }
+    }
   }
 
   public void createVenue(
