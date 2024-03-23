@@ -24,14 +24,23 @@ public class VenueHireSystem {
   }
 
   public void createVenue(
-      String venueName, String venueCode, String capacityInput, String hireFeeInput) {
+    String venueName, String venueCode, String capacityInput, String hireFeeInput) {
+
     if (venueName.isEmpty()) {
       MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
       return;
     } 
-    
+
+    if (Integer.parseInt(capacityInput) < 0) {
+      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
+      return;
+    } 
+
     venueList.add(venueCode);
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
+
+    // For using the venue class in the future
+    // Venue venue = new Venue(venueName, venueCode, Integer.parseInt(capacityInput), Integer.parseInt(hireFeeInput));
   }
 
   public void setSystemDate(String dateInput) {
