@@ -31,7 +31,10 @@ public class VenueHireSystem {
       return;
     } 
 
-    if (Integer.parseInt(capacityInput) < 0) {
+   if (isNumberInteger(capacityInput) == false) {
+      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity");
+      return;
+    } else if (Integer.parseInt(capacityInput) <= 0) {
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
       return;
     } 
@@ -74,4 +77,16 @@ public class VenueHireSystem {
   public void viewInvoice(String bookingReference) {
     // TODO implement this method
   }
+
+  // checking if an entered number is an integer
+  public boolean isNumberInteger(String input) {
+    try {
+      Integer.parseInt(input);
+      return true;
+    } catch (NumberFormatException e) {
+      return false;
+    }
+  }
+
 }
+
