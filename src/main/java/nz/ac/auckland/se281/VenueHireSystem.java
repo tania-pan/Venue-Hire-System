@@ -31,13 +31,23 @@ public class VenueHireSystem {
       return;
     } 
 
+    // checking if the input capacity is a valid number
    if (isNumberInteger(capacityInput) == false) {
-      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity");
+      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", "");
       return;
     } else if (Integer.parseInt(capacityInput) <= 0) {
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
       return;
     } 
+
+    // checking if the input hire fee is a valid number
+    if (isNumberInteger(hireFeeInput) == false) {
+      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", "");
+      return;
+    } else if (Integer.parseInt(hireFeeInput) <= 0) {
+      MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("hire fee", " positive");
+      return;
+    }
 
     venueList.add(venueCode);
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
