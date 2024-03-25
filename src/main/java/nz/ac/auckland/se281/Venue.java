@@ -18,31 +18,15 @@ public Venue(String venueName, String venueCode, int capacity, int hireFee) {
     return venueName;
   }
 
-  public void setVenueName(String venueName) {
-    this.venueName = venueName;
-  }
-
   public String getVenueCode() {
     return venueCode;
-  }
-
-  public void setVenueCode(String venueCode) {
-    this.venueCode = venueCode;
   }
 
   public int getCapacity() {
     return capacity;
   }
 
-  public void setCapacity(int capacity) {
-    this.capacity = capacity;
-  }
-
   public int getHireFee() {
     return hireFee;
   }
-
-  public void setHireFee(int hireFee) {
-    this.hireFee = hireFee;
-} 
 }

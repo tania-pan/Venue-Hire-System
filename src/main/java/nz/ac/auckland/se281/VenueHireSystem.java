@@ -7,30 +7,29 @@ import nz.ac.auckland.se281.Types.FloralType;
 
 public class VenueHireSystem {
 
-  private ArrayList<String> venueList = new ArrayList<String>();
+  private ArrayList<Venue> venueList = new ArrayList<Venue>();
 
-  public VenueHireSystem() {
-
-  }
+  public VenueHireSystem() {}
 
   public void printVenues() {
 
     if (venueList.isEmpty()) {
       MessageCli.NO_VENUES.printMessage();
     } else {
+        String stringNumbers[] = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+
         if (venueList.size() == 1) {
-          MessageCli.NUMBER_VENUES.printMessage("is", "one");
+          MessageCli.NUMBER_VENUES.printMessage("is", stringNumbers[venueList.size()], "");
         } else if (venueList.size() > 1 && venueList.size() < 10) {
-          MessageCli.NUMBER_VENUES.printMessage("are", Integer.toString(venueList.size()));
+          MessageCli.NUMBER_VENUES.printMessage("are", stringNumbers[venueList.size()], "s");
         } else {
-          MessageCli.NUMBER_VENUES.printMessage("are", Integer.toString(venueList.size()));
+          MessageCli.NUMBER_VENUES.printMessage("are", Integer.toString(venueList.size()), "s");
         }
       }
 
-      // TO DO: printing venue details
-      // for (String venue : venueList) {
-      //   MessageCli.VENUE_ENTRY.printMessage(venueName, capacityInput, hireFee, nextAvailableDate)
-      // }
+      for (Venue venue : venueList) {
+        MessageCli.VENUE_ENTRY.printMessage(venue.getVenueName(), venue.getVenueCode(), Integer.toString(venue.getCapacity()), Integer.toString(venue.getHireFee()), "");
+      }
 
   }
 
@@ -60,11 +59,10 @@ public class VenueHireSystem {
       return;
     }
 
-    venueList.add(venueCode);
+    Venue venue = new Venue(venueName, venueCode, Integer.parseInt(capacityInput), Integer.parseInt(hireFeeInput));
+    venueList.add(venue);
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
-
-    // For using the venue class in the future
-    // Venue venue = new Venue(venueName, venueCode, Integer.parseInt(capacityInput), Integer.parseInt(hireFeeInput));
+  
   }
 
   public void setSystemDate(String dateInput) {
