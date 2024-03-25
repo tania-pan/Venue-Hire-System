@@ -36,10 +36,19 @@ public class VenueHireSystem {
   public void createVenue(
     String venueName, String venueCode, String capacityInput, String hireFeeInput) {
 
+    // checking if the inputted venue name is empty
     if (venueName.isEmpty()) {
       MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
       return;
     } 
+
+    // checking if the inputted venue code is already in use
+    for (Venue venue : venueList) {
+      if (venue.getVenueCode().equals(venueCode)) {
+        MessageCli.VENUE_NOT_CREATED_CODE_EXISTS.printMessage(venueCode, venue.getVenueName());
+        return;
+      }
+    }
 
     // checking if the input capacity is a valid number
    if (isNumberInteger(capacityInput) == false) {
