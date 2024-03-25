@@ -1,7 +1,6 @@
 package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
-
 import nz.ac.auckland.se281.Types.CateringType;
 import nz.ac.auckland.se281.Types.FloralType;
 
@@ -13,34 +12,47 @@ public class VenueHireSystem {
 
   public void printVenues() {
 
-    if (venueList.isEmpty()) {
+    if (venueList.isEmpty()) { // checking if there are any venues created to print
+
       MessageCli.NO_VENUES.printMessage();
+
     } else {
-        String stringNumbers[] = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
 
-        if (venueList.size() == 1) {
-          MessageCli.NUMBER_VENUES.printMessage("is", stringNumbers[venueList.size()], "");
-        } else if (venueList.size() > 1 && venueList.size() < 10) {
-          MessageCli.NUMBER_VENUES.printMessage("are", stringNumbers[venueList.size()], "s");
-        } else {
-          MessageCli.NUMBER_VENUES.printMessage("are", Integer.toString(venueList.size()), "s");
-        }
+      String[] stringNumbers = {
+        "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
+      };
+
+      int n = venueList.size();
+
+      // printing the number of venues in specific format
+      if (n == 1) {
+        MessageCli.NUMBER_VENUES.printMessage("is", stringNumbers[n], "");
+      } else if (n > 1 && n < 10) {
+        MessageCli.NUMBER_VENUES.printMessage("are", stringNumbers[n], "s");
+      } else {
+        MessageCli.NUMBER_VENUES.printMessage("are", Integer.toString(n), "s");
       }
 
+      // printing the details of each venue in a list
       for (Venue venue : venueList) {
-        MessageCli.VENUE_ENTRY.printMessage(venue.getVenueName(), venue.getVenueCode(), Integer.toString(venue.getCapacity()), Integer.toString(venue.getHireFee()), "");
+        MessageCli.VENUE_ENTRY.printMessage(
+            venue.getVenueName(),
+            venue.getVenueCode(),
+            Integer.toString(venue.getCapacity()),
+            Integer.toString(venue.getHireFee()),
+            "");
       }
-
+    }
   }
 
   public void createVenue(
-    String venueName, String venueCode, String capacityInput, String hireFeeInput) {
+      String venueName, String venueCode, String capacityInput, String hireFeeInput) {
 
     // checking if the inputted venue name is empty
     if (venueName.isEmpty()) {
       MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
       return;
-    } 
+    }
 
     // checking if the inputted venue code is already in use
     for (Venue venue : venueList) {
@@ -51,13 +63,13 @@ public class VenueHireSystem {
     }
 
     // checking if the input capacity is a valid number
-   if (isNumberInteger(capacityInput) == false) {
+    if (isNumberInteger(capacityInput) == false) {
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", "");
       return;
     } else if (Integer.parseInt(capacityInput) <= 0) {
       MessageCli.VENUE_NOT_CREATED_INVALID_NUMBER.printMessage("capacity", " positive");
       return;
-    } 
+    }
 
     // checking if the input hire fee is a valid number
     if (isNumberInteger(hireFeeInput) == false) {
@@ -68,10 +80,12 @@ public class VenueHireSystem {
       return;
     }
 
-    Venue venue = new Venue(venueName, venueCode, Integer.parseInt(capacityInput), Integer.parseInt(hireFeeInput));
+    // inputs are all valid, creating new venue
+    Venue venue =
+        new Venue(
+            venueName, venueCode, Integer.parseInt(capacityInput), Integer.parseInt(hireFeeInput));
     venueList.add(venue);
     MessageCli.VENUE_SUCCESSFULLY_CREATED.printMessage(venueName, venueCode);
-  
   }
 
   public void setSystemDate(String dateInput) {
@@ -115,6 +129,4 @@ public class VenueHireSystem {
       return false;
     }
   }
-
 }
-
