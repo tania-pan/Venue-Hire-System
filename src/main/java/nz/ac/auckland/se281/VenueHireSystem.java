@@ -14,13 +14,24 @@ public class VenueHireSystem {
   }
 
   public void printVenues() {
+
     if (venueList.isEmpty()) {
       MessageCli.NO_VENUES.printMessage();
     } else {
-      for (String venue : venueList) {
-        System.out.println(venue);
+        if (venueList.size() == 1) {
+          MessageCli.NUMBER_VENUES.printMessage("is", "one");
+        } else if (venueList.size() > 1 && venueList.size() < 10) {
+          MessageCli.NUMBER_VENUES.printMessage("are", Integer.toString(venueList.size()));
+        } else {
+          MessageCli.NUMBER_VENUES.printMessage("are", Integer.toString(venueList.size()));
+        }
       }
-    }
+
+      // TO DO: printing venue details
+      // for (String venue : venueList) {
+      //   MessageCli.VENUE_ENTRY.printMessage(venueName, capacityInput, hireFee, nextAvailableDate)
+      // }
+
   }
 
   public void createVenue(
