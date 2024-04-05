@@ -104,7 +104,42 @@ public class VenueHireSystem {
   }
 
   public void makeBooking(String[] options) {
-    // TODO implement this method
+
+    /* checking booking conditions are met */
+
+    // checking system date is set
+    if (systemDate == null) {
+      return;
+    }
+
+    // checking there is at least one venue in the system
+    if (venueList.isEmpty()) {
+      return;
+    }
+
+    // checking the venue code exists
+    for (Venue venue : venueList) {
+      if (venue.getVenueCode().equals(options[0])) {
+        break;
+      } else {
+        return;
+      }
+    }
+
+    // checking venue is available on the date
+    for (Venue venue : venueList) {
+      if (venue.getVenueDate().equals(options[1])) {
+        return;
+      }
+    }
+
+    // checking the date is not in the past
+
+    // parsing the system date into day, month and year
+    // String[] dateParts = systemDate.split("/");
+    // String day = dateParts[0];
+    // String month = dateParts[1];
+    // String year = dateParts[2];
   }
 
   public void printBookings(String venueCode) {

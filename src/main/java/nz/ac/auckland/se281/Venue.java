@@ -7,7 +7,7 @@ public class Venue {
   private int capacity;
   private int hireFee;
 
-  // private String venueDate;
+  private String venueDate;
 
   public Venue(String venueName, String venueCode, int capacity, int hireFee) {
     this.venueName = venueName;
@@ -31,13 +31,13 @@ public class Venue {
   public int getHireFee() {
     return hireFee;
   }
-  // mistake but will probably use later
-  // public String setVenueDate(String venueDate) {
-  //   this.venueDate = venueDate;
-  //   return venueDate;
-  // }
 
-  // public String getVenueDate() {
-  //   return venueDate;
-  // }
+  public String setVenueDate(String venueDate) {
+    this.venueDate = venueDate;
+    return venueDate;
+  }
+
+  public String getVenueDate() {
+    return venueDate;
+  }
 }
