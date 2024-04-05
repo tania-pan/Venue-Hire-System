@@ -108,9 +108,7 @@ public class VenueHireSystem {
     /* checking booking conditions are met */
 
     // checking system date is set
-    if (systemDate == null) {
-      return;
-    }
+    if (systemDate == null) {}
 
     // checking there is at least one venue in the system
     if (venueList.isEmpty()) {
@@ -135,11 +133,20 @@ public class VenueHireSystem {
 
     // checking the date is not in the past
 
-    // parsing the system date into day, month and year
-    // String[] dateParts = systemDate.split("/");
-    // String day = dateParts[0];
-    // String month = dateParts[1];
-    // String year = dateParts[2];
+    String[] parsedInputDate = options[1].split("/");
+    String[] parsedSystemDate = systemDate.split("/");
+
+    if (Integer.parseInt(parsedInputDate[2]) < Integer.parseInt(parsedSystemDate[2])) {
+      return;
+    } else if (Integer.parseInt(parsedInputDate[2]) == Integer.parseInt(parsedSystemDate[2])) {
+      if (Integer.parseInt(parsedInputDate[1]) < Integer.parseInt(parsedSystemDate[1])) {
+        return;
+      } else if (Integer.parseInt(parsedInputDate[1]) == Integer.parseInt(parsedSystemDate[1])) {
+        if (Integer.parseInt(parsedInputDate[0]) < Integer.parseInt(parsedSystemDate[0])) {
+          return;
+        }
+      }
+    }
   }
 
   public void printBookings(String venueCode) {
@@ -170,5 +177,13 @@ public class VenueHireSystem {
     } catch (NumberFormatException e) {
       return false;
     }
+  }
+
+  // parsing an entered date
+  public void parseDate(String date) {
+    String[] dateParts = date.split("/");
+    String day = dateParts[0];
+    String month = dateParts[1];
+    String year = dateParts[2];
   }
 }
