@@ -8,6 +8,8 @@ public class VenueHireSystem {
 
   private ArrayList<Venue> venueList = new ArrayList<Venue>();
 
+  public String systemDate;
+
   public VenueHireSystem() {}
 
   public void printVenues() {
@@ -89,11 +91,16 @@ public class VenueHireSystem {
   }
 
   public void setSystemDate(String dateInput) {
-    // TODO implement this method
+    systemDate = dateInput;
+    MessageCli.DATE_SET.printMessage(dateInput);
   }
 
   public void printSystemDate() {
-    // TODO implement this method
+    if (systemDate == null) {
+      System.out.println("Current system date is not set.");
+    } else {
+      MessageCli.CURRENT_DATE.printMessage(systemDate);
+    }
   }
 
   public void makeBooking(String[] options) {
