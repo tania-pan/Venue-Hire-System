@@ -6,7 +6,7 @@ import nz.ac.auckland.se281.Types.FloralType;
 
 public class VenueHireSystem {
 
-  private ArrayList<Venue> venueList = new ArrayList<Venue>();
+  private ArrayList<Venue> venueList = new ArrayList<Venue>(); // list of venue codes
 
   public String systemDate;
 
@@ -105,44 +105,78 @@ public class VenueHireSystem {
 
   public void makeBooking(String[] options) {
 
+    /* option[0] = venue code
+     * option[1] = booking date
+     * option[2] = customer email
+     * option[3] = number of attendees
+     */
+
+    Venue venueToBook = null;
+
     /* checking booking conditions are met */
 
-    // checking system date is set
+    // 1. checking system date is set
     if (systemDate == null) {
       MessageCli.BOOKING_NOT_MADE_DATE_NOT_SET.printMessage();
       return;
     }
 
-    // checking there is at least one venue in the system
+    // 2. checking the date is not in the past
+    if (isDateInPast(options[1], systemDate) == false) {
+      MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(options[1], systemDate);
+      return;
+    }
+
+    // 3. checking there is at least one venue in the system
     if (venueList.isEmpty()) {
       MessageCli.BOOKING_NOT_MADE_NO_VENUES.printMessage();
       return;
     }
 
-    // checking the venue code exists
+    // 4. checking the venue code exists
     for (Venue venue : venueList) {
       if (venue.getVenueCode().equals(options[0])) {
+        venueToBook = venue;
         break;
-      } else {
-        MessageCli.BOOKING_NOT_MADE_VENUE_NOT_FOUND.printMessage(options[0]);
-        return;
       }
     }
 
-    // checking venue is available on the date
-    for (Venue venue : venueList) {
-      if (venue.getVenueDate().equals(options[1])) {
-        MessageCli.BOOKING_NOT_MADE_VENUE_ALREADY_BOOKED.printMessage(
-            venue.getVenueName(), options[1]);
-        return;
-      }
-    }
-
-    // checking the date is not in the past
-    if (isDateInPast(options[1], systemDate) == false) {
-      MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(options[1], systemDate);
+    if (venueToBook == null) {
+      MessageCli.BOOKING_NOT_MADE_VENUE_NOT_FOUND.printMessage(options[0]);
       return;
     }
+
+    // 5. if venue exists, checking if it is available on the date
+    if (venueToBook.checkAvailability(options[1]) == false) {
+      MessageCli.BOOKING_NOT_MADE_VENUE_ALREADY_BOOKED.printMessage(
+          venueToBook.getVenueName(), options[1]);
+      return;
+    }
+
+    /* else all conditions are met and booking will be made */
+
+    // adjust attendee count if needed
+    if (Integer.parseInt(options[3]) < venueToBook.getCapacity() * 0.25) {
+      options[3] = Integer.toString((int) (venueToBook.getCapacity() * 0.25));
+      MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(
+          options[3],
+          Integer.toString((int) (venueToBook.getCapacity() * 0.25)),
+          Integer.toString(venueToBook.getCapacity()));
+    } else if (Integer.parseInt(options[3]) > venueToBook.getCapacity()) {
+      options[3] = Integer.toString(venueToBook.getCapacity());
+      MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(
+          options[3],
+          Integer.toString(venueToBook.getCapacity()),
+          Integer.toString(venueToBook.getCapacity()));
+    }
+
+    Booking booking = new Booking(options[0], options[1], options[2], options[3]);
+
+    MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
+        booking.getBookingReference(),
+        venueToBook.getVenueName(),
+        booking.getBookingDate(),
+        booking.getAttendeesCount());
   }
 
   public void printBookings(String venueCode) {

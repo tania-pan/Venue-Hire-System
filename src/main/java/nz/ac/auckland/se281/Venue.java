@@ -1,13 +1,17 @@
 package nz.ac.auckland.se281;
 
+import java.util.ArrayList;
+
 public class Venue {
 
-  private String venueName;
-  private String venueCode;
+  protected String venueName;
+  protected String venueCode;
   private int capacity;
   private int hireFee;
 
-  private String venueDate;
+  private ArrayList<String> bookedDates = new ArrayList<String>();
+
+  // private String nextAvailableDate;
 
   public Venue(String venueName, String venueCode, int capacity, int hireFee) {
     this.venueName = venueName;
@@ -32,12 +36,30 @@ public class Venue {
     return hireFee;
   }
 
-  public String setVenueDate(String venueDate) {
-    this.venueDate = venueDate;
-    return venueDate;
+  public boolean checkAvailability(String bookingDate) {
+    for (String date : bookedDates) {
+      if (date.equals(bookingDate)) {
+        return false; // unavailable
+      }
+    }
+    return true; // available
   }
 
-  public String getVenueDate() {
-    return venueDate;
+  public void setBookingDate(String bookingDate) {
+    this.bookedDates.add("bookingDate");
   }
+
+  // unsure ????????????????????
+  // public String getBookedDate(int index) {
+  //   return bookedDates[index];
+  // }
+
+  // public String setNextAvailableDate(String nextAvailableDate) {
+  //   this.nextAvailableDate = nextAvailableDate;
+  //   return nextAvailableDate;
+  // }
+
+  // public String getNextAvailableDate() {
+  //   return nextAvailableDate;
+  // }
 }
