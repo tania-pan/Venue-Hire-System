@@ -146,8 +146,9 @@ public class VenueHireSystem {
       return;
     }
 
-    // 5. if venue exists, checking if it is available on the date
-    if (venueToBook.checkAvailability(options[1]) == false) {
+    // 5. checking if venue is available on the date
+    boolean venueAvailability = venueToBook.checkAvailability(options[1]);
+    if (venueAvailability == false) {
       MessageCli.BOOKING_NOT_MADE_VENUE_ALREADY_BOOKED.printMessage(
           venueToBook.getVenueName(), options[1]);
       return;
@@ -156,11 +157,13 @@ public class VenueHireSystem {
     /* else all conditions are met and booking will be made */
 
     // adjust attendee count if needed
-    if (Integer.parseInt(options[3]) < venueToBook.getCapacity() * 0.25) {
+    int inputAttendees = Integer.parseInt(options[3]);
+
+    if (inputAttendees < (venueToBook.getCapacity() * 0.25)) {
       options[3] = Integer.toString((int) (venueToBook.getCapacity() * 0.25));
       MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(
+          Integer.toString(inputAttendees),
           options[3],
-          Integer.toString((int) (venueToBook.getCapacity() * 0.25)),
           Integer.toString(venueToBook.getCapacity()));
     } else if (Integer.parseInt(options[3]) > venueToBook.getCapacity()) {
       options[3] = Integer.toString(venueToBook.getCapacity());
@@ -171,6 +174,8 @@ public class VenueHireSystem {
     }
 
     Booking booking = new Booking(options[0], options[1], options[2], options[3]);
+
+    venueToBook.setBookingDate(options[1]);
 
     MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
         booking.getBookingReference(),

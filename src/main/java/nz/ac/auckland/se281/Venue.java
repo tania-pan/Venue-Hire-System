@@ -46,13 +46,8 @@ public class Venue {
   }
 
   public void setBookingDate(String bookingDate) {
-    this.bookedDates.add("bookingDate");
+    this.bookedDates.add(bookingDate);
   }
-
-  // unsure ????????????????????
-  // public String getBookedDate(int index) {
-  //   return bookedDates[index];
-  // }
 
   // public String setNextAvailableDate(String nextAvailableDate) {
   //   this.nextAvailableDate = nextAvailableDate;
