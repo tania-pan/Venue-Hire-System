@@ -64,8 +64,6 @@ public class Venue {
         }
       }
     }
-
-    return;
   }
 
   public String getNextAvailableDate(String systemDate) {

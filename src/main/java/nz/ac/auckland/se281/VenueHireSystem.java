@@ -36,13 +36,24 @@ public class VenueHireSystem {
       }
 
       // printing the details of each venue in a list
-      for (Venue venue : venueList) {
-        MessageCli.VENUE_ENTRY.printMessage(
-            venue.getVenueName(),
-            venue.getVenueCode(),
-            Integer.toString(venue.getCapacity()),
-            Integer.toString(venue.getHireFee()),
-            venue.getNextAvailableDate(systemDate));
+      if (systemDate == null) {
+        for (Venue venue : venueList) {
+          MessageCli.VENUE_ENTRY.printMessage(
+              venue.getVenueName(),
+              venue.getVenueCode(),
+              Integer.toString(venue.getCapacity()),
+              Integer.toString(venue.getHireFee()),
+              "");
+        }
+      } else {
+        for (Venue venue : venueList) {
+          MessageCli.VENUE_ENTRY.printMessage(
+              venue.getVenueName(),
+              venue.getVenueCode(),
+              Integer.toString(venue.getCapacity()),
+              Integer.toString(venue.getHireFee()),
+              venue.getNextAvailableDate(systemDate));
+        }
       }
     }
   }
