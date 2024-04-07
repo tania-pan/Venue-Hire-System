@@ -186,7 +186,7 @@ public class VenueHireSystem {
 
     Booking booking = new Booking(options[0], options[1], options[2], options[3]);
 
-    venueToBook.setBookingDate(options[1]);
+    venueToBook.addBooking(booking);
     venueToBook.updateNextAvailableDate(systemDate);
 
     MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
@@ -199,7 +199,6 @@ public class VenueHireSystem {
   public void printBookings(String venueCode) {
 
     Venue venueToPrint = null;
-    Booking bookingToPrint;
 
     for (Venue venue : venueList) {
       if (venue.getVenueCode().equals(venueCode)) {
@@ -222,15 +221,15 @@ public class VenueHireSystem {
     }
 
     // checking if there are any bookings for the venue
-    if (venueToPrint.getBookedDates().isEmpty()) {
+    if (venueToPrint.getBookings().isEmpty()) {
       MessageCli.PRINT_BOOKINGS_NONE.printMessage(venueToPrint.getVenueName());
       return;
+    } else { // print the bookings
+      for (Booking booking : venueToPrint.getBookings()) {
+        MessageCli.PRINT_BOOKINGS_ENTRY.printMessage(
+            booking.getBookingReference(), booking.getBookingDate());
+      }
     }
-
-    // else print the bookings
-    //   for (String date : venueToPrint.getBookedDates()) {
-    //     bookingToPrint = date;
-
   }
 
   public void addCateringService(String bookingReference, CateringType cateringType) {

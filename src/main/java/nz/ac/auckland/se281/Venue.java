@@ -9,7 +9,7 @@ public class Venue {
   private int capacity;
   private int hireFee;
 
-  private ArrayList<String> bookedDates = new ArrayList<String>();
+  private ArrayList<Booking> bookingsList = new ArrayList<Booking>();
 
   private String nextAvailableDate;
 
@@ -37,28 +37,28 @@ public class Venue {
   }
 
   public boolean checkAvailability(String bookingDate) {
-    for (String date : bookedDates) {
-      if (date.equals(bookingDate)) {
+    for (Booking booking : bookingsList) {
+      if (booking.getBookingDate().equals(bookingDate)) {
         return false; // unavailable
       }
     }
     return true; // available
   }
 
-  public void setBookingDate(String bookingDate) {
-    this.bookedDates.add(bookingDate);
+  public void addBooking(Booking bookingDate) {
+    this.bookingsList.add(bookingDate);
   }
 
-  public ArrayList<String> getBookedDates() {
-    return bookedDates;
+  public ArrayList<Booking> getBookings() {
+    return bookingsList;
   }
 
   public void updateNextAvailableDate(String systemDate) {
     this.nextAvailableDate = systemDate;
     String parsedNAD[] = nextAvailableDate.split("/");
 
-    for (String date : bookedDates) {
-      if (nextAvailableDate.equals(date)) {
+    for (Booking booking : bookingsList) {
+      if (nextAvailableDate.equals(booking.getBookingDate())) {
         Integer nextDay = Integer.parseInt(parsedNAD[0]) + 1;
         parsedNAD[0] = nextDay.toString();
         if (nextDay < 10) {
