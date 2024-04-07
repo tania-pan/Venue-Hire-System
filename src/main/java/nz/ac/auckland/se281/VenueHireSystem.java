@@ -7,6 +7,8 @@ import nz.ac.auckland.se281.Types.FloralType;
 public class VenueHireSystem {
 
   private ArrayList<Venue> venueList = new ArrayList<Venue>(); // list of venue codes
+  private ArrayList<Booking> bookingList =
+      new ArrayList<Booking>(); // list of booking references for all venues
 
   public String systemDate;
 
@@ -186,6 +188,7 @@ public class VenueHireSystem {
 
     Booking booking = new Booking(options[0], options[1], options[2], options[3]);
 
+    bookingList.add(booking);
     venueToBook.addBooking(booking);
     venueToBook.updateNextAvailableDate(systemDate);
 
@@ -233,15 +236,32 @@ public class VenueHireSystem {
   }
 
   public void addCateringService(String bookingReference, CateringType cateringType) {
-    // TODO implement this method
+
+    // check if booking reference exists
+    if (checkBookingReference(bookingReference) == false) {
+      MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Catering", bookingReference);
+      return;
+    }
+
   }
 
   public void addServiceMusic(String bookingReference) {
-    // TODO implement this method
+    
+    // check if booking reference exists
+    if (checkBookingReference(bookingReference) == false) {
+      MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Music", bookingReference);
+      return;
+    }
   }
 
   public void addServiceFloral(String bookingReference, FloralType floralType) {
-    // TODO implement this method
+    
+    // check if booking reference exists
+    if (checkBookingReference(bookingReference) == false) {
+      MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Floral", bookingReference);
+      return;
+    }
+    
   }
 
   public void viewInvoice(String bookingReference) {
@@ -277,5 +297,15 @@ public class VenueHireSystem {
     }
 
     return false; // else date is not in the past
+  }
+
+  // check if booking reference exists
+  public boolean checkBookingReference(String bookingReference) {
+    for (Booking booking : bookingList) {
+      if (booking.getBookingReference().equals(bookingReference)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

@@ -9,7 +9,7 @@ public class Venue {
   private int capacity;
   private int hireFee;
 
-  private ArrayList<Booking> bookingsList = new ArrayList<Booking>();
+  private ArrayList<Booking> bookingsList = new ArrayList<Booking>(); // list of bookings for venue
 
   private String nextAvailableDate;
 
