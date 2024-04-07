@@ -49,6 +49,10 @@ public class Venue {
     this.bookedDates.add(bookingDate);
   }
 
+  public ArrayList<String> getBookedDates() {
+    return bookedDates;
+  }
+
   public void updateNextAvailableDate(String systemDate) {
     this.nextAvailableDate = systemDate;
     String parsedNAD[] = nextAvailableDate.split("/");
