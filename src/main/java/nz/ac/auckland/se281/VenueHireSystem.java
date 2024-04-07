@@ -42,7 +42,7 @@ public class VenueHireSystem {
             venue.getVenueCode(),
             Integer.toString(venue.getCapacity()),
             Integer.toString(venue.getHireFee()),
-            "");
+            venue.getNextAvailableDate(systemDate));
       }
     }
   }
@@ -105,10 +105,10 @@ public class VenueHireSystem {
 
   public void makeBooking(String[] options) {
 
-    /* option[0] = venue code
-     * option[1] = booking date
-     * option[2] = customer email
-     * option[3] = number of attendees
+    /* options[0] = venue code
+     * options[1] = booking date
+     * options[2] = customer email
+     * options[3] = number of attendees
      */
 
     Venue venueToBook = null;
@@ -122,7 +122,7 @@ public class VenueHireSystem {
     }
 
     // 2. checking the date is not in the past
-    if (isDateInPast(options[1], systemDate) == false) {
+    if (isDateInPast(options[1], systemDate)) {
       MessageCli.BOOKING_NOT_MADE_PAST_DATE.printMessage(options[1], systemDate);
       return;
     }
@@ -176,6 +176,7 @@ public class VenueHireSystem {
     Booking booking = new Booking(options[0], options[1], options[2], options[3]);
 
     venueToBook.setBookingDate(options[1]);
+    venueToBook.updateNextAvailableDate(systemDate);
 
     MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
         booking.getBookingReference(),
@@ -221,17 +222,17 @@ public class VenueHireSystem {
     String[] parsedSystemDate = systemDate.split("/");
 
     if (Integer.parseInt(parsedInputDate[2]) < Integer.parseInt(parsedSystemDate[2])) {
-      return false;
+      return true;
     } else if (Integer.parseInt(parsedInputDate[2]) == Integer.parseInt(parsedSystemDate[2])) {
       if (Integer.parseInt(parsedInputDate[1]) < Integer.parseInt(parsedSystemDate[1])) {
-        return false;
+        return true;
       } else if (Integer.parseInt(parsedInputDate[1]) == Integer.parseInt(parsedSystemDate[1])) {
         if (Integer.parseInt(parsedInputDate[0]) < Integer.parseInt(parsedSystemDate[0])) {
-          return false;
+          return true;
         }
       }
     }
 
-    return true; // else date is not in the past
+    return false; // else date is not in the past
   }
 }

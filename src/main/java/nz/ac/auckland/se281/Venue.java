@@ -11,7 +11,7 @@ public class Venue {
 
   private ArrayList<String> bookedDates = new ArrayList<String>();
 
-  // private String nextAvailableDate;
+  private String nextAvailableDate;
 
   public Venue(String venueName, String venueCode, int capacity, int hireFee) {
     this.venueName = venueName;
@@ -49,12 +49,27 @@ public class Venue {
     this.bookedDates.add(bookingDate);
   }
 
-  // public String setNextAvailableDate(String nextAvailableDate) {
-  //   this.nextAvailableDate = nextAvailableDate;
-  //   return nextAvailableDate;
-  // }
+  public void updateNextAvailableDate(String systemDate) {
+    this.nextAvailableDate = systemDate;
+    String parsedNAD[] = nextAvailableDate.split("/");
 
-  // public String getNextAvailableDate() {
-  //   return nextAvailableDate;
-  // }
+    for (String date : bookedDates) {
+      if (nextAvailableDate.equals(date)) {
+        Integer nextDay = Integer.parseInt(parsedNAD[0]) + 1;
+        parsedNAD[0] = nextDay.toString();
+        if (nextDay < 10) {
+          this.nextAvailableDate = "0" + parsedNAD[0] + "/" + parsedNAD[1] + "/" + parsedNAD[2];
+        } else {
+          this.nextAvailableDate = parsedNAD[0] + "/" + parsedNAD[1] + "/" + parsedNAD[2];
+        }
+      }
+    }
+
+    return;
+  }
+
+  public String getNextAvailableDate(String systemDate) {
+    updateNextAvailableDate(systemDate);
+    return nextAvailableDate;
+  }
 }
