@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import nz.ac.auckland.se281.Types.CateringType;
 import nz.ac.auckland.se281.Types.FloralType;
 
-
 public class Booking {
 
   private String bookingDate;
+  private String partyDate;
   private String customerEmail;
   private String attendeesCount;
   private String bookingReference;
@@ -16,20 +16,29 @@ public class Booking {
   private ArrayList<Service> servicesList = new ArrayList<Service>();
 
   public Booking(
-      String venueCode, String bookingDate, String customerEmail, String attendeesCount) {
-    this.venueCode = venueCode;
+      String bookingDate,
+      String venueCode,
+      String partyDate,
+      String customerEmail,
+      String attendeesCount) {
     this.bookingDate = bookingDate;
+    this.venueCode = venueCode;
+    this.partyDate = partyDate;
     this.customerEmail = customerEmail;
     this.attendeesCount = attendeesCount;
     this.bookingReference = BookingReferenceGenerator.generateBookingReference();
+  }
+
+  public String getbookingDate() {
+    return bookingDate;
   }
 
   public String getVenueCode() {
     return venueCode;
   }
 
-  public String getBookingDate() {
-    return bookingDate;
+  public String getPartyDate() {
+    return partyDate;
   }
 
   public String getCustomerEmail() {

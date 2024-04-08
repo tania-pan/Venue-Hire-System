@@ -119,7 +119,7 @@ public class VenueHireSystem {
   public void makeBooking(String[] options) {
 
     /* options[0] = venue code
-     * options[1] = booking date
+     * options[1] = party date
      * options[2] = customer email
      * options[3] = number of attendees
      */
@@ -186,7 +186,7 @@ public class VenueHireSystem {
           Integer.toString(venueToBook.getCapacity()));
     }
 
-    Booking booking = new Booking(options[0], options[1], options[2], options[3]);
+    Booking booking = new Booking(systemDate, options[0], options[1], options[2], options[3]);
 
     bookingList.add(booking);
     venueToBook.addBooking(booking);
@@ -195,7 +195,7 @@ public class VenueHireSystem {
     MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
         booking.getBookingReference(),
         venueToBook.getVenueName(),
-        booking.getBookingDate(),
+        booking.getPartyDate(),
         booking.getAttendeesCount());
   }
 
@@ -230,7 +230,7 @@ public class VenueHireSystem {
     } else { // print the bookings
       for (Booking booking : venueToPrint.getBookings()) {
         MessageCli.PRINT_BOOKINGS_ENTRY.printMessage(
-            booking.getBookingReference(), booking.getBookingDate());
+            booking.getBookingReference(), booking.getPartyDate());
       }
     }
   }
