@@ -1,3 +1,3 @@
 package nz.ac.auckland.se281;
 
-public abstract class Catering {}
+public class Catering extends Service {}
