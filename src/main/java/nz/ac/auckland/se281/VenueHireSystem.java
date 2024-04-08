@@ -300,7 +300,63 @@ public class VenueHireSystem {
   }
 
   public void viewInvoice(String bookingReference) {
-    // TODO implement this method
+
+    // check if booking reference exists
+    if (checkBookingReference(bookingReference) == false) {
+      MessageCli.VIEW_INVOICE_BOOKING_NOT_FOUND.printMessage(bookingReference);
+      return;
+    }
+
+    Booking bookingToPrint = null;
+    Venue bookedVenue = null;
+
+    // find booking
+    for (Booking booking : bookingList) {
+      if (booking.getBookingReference().equals(bookingReference)) {
+        bookingToPrint = booking;
+        break;
+      }
+    }
+
+    // find venue
+    for (Venue venue : venueList) {
+      if (venue.getVenueCode().equals(bookingToPrint.getVenueCode())) {
+        bookedVenue = venue;
+        break;
+      }
+    }
+
+    // print top half of invoice
+    MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(
+        bookingReference,
+        bookingToPrint.getCustomerEmail(),
+        bookingToPrint.getbookingDate(),
+        bookingToPrint.getPartyDate(),
+        bookingToPrint.getAttendeesCount(),
+        bookedVenue.getVenueName());
+
+    // print hire fee
+    MessageCli.INVOICE_CONTENT_VENUE_FEE.printMessage(Integer.toString(bookedVenue.getHireFee()));
+
+    // print services details
+    for (Service service : bookingToPrint.getServicesList()) {
+      if (service instanceof Catering) {
+        Catering catering = (Catering) service;
+        MessageCli.INVOICE_CONTENT_CATERING_ENTRY.printMessage(
+            catering.getCateringType().getName(), Integer.toString(catering.getServiceCost()));
+      } else if (service instanceof Music) {
+        MessageCli.INVOICE_CONTENT_MUSIC_ENTRY.printMessage(
+            Integer.toString(service.getServiceCost()));
+      } else if (service instanceof Floral) {
+        Floral floral = (Floral) service;
+        MessageCli.INVOICE_CONTENT_FLORAL_ENTRY.printMessage(
+            floral.getFloralType().getName(), Integer.toString(floral.getServiceCost()));
+      }
+    }
+
+    // print bottom half of invoice
+    MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage(
+        Integer.toString(bookingToPrint.getTotalCost()));
   }
 
   // checking if an entered number is an integer

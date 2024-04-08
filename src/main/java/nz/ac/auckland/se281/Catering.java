@@ -14,8 +14,4 @@ public class Catering extends Service {
   public CateringType getCateringType() {
     return cateringType;
   }
-
-  public int getCateringCost() {
-    return serviceCost;
-  }
 }
