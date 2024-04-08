@@ -243,9 +243,10 @@ public class VenueHireSystem {
       return;
     }
 
-    // add catering to booking
+    // add catering of specified type to booking
     for (Booking booking : bookingList) {
       if (booking.getBookingReference().equals(bookingReference)) {
+
         booking.addCatering(cateringType);
 
         MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(
@@ -268,8 +269,7 @@ public class VenueHireSystem {
     for (Booking booking : bookingList) {
       if (booking.getBookingReference().equals(bookingReference)) {
 
-        Music newMusic = new Music();
-        booking.addMusic(newMusic);
+        booking.addMusic();
 
         MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Music", bookingReference);
 
@@ -284,6 +284,18 @@ public class VenueHireSystem {
     if (checkBookingReference(bookingReference) == false) {
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Floral", bookingReference);
       return;
+    }
+
+    // add floral of specified type to booking
+    for (Booking booking : bookingList) {
+      if (booking.getBookingReference().equals(bookingReference)) {
+        booking.addFloral(floralType);
+
+        MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(
+            "Floral (" + floralType.getName() + ")", bookingReference);
+
+        return;
+      }
     }
   }
 

@@ -2,6 +2,8 @@ package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
 import nz.ac.auckland.se281.Types.CateringType;
+import nz.ac.auckland.se281.Types.FloralType;
+
 
 public class Booking {
 
@@ -49,7 +51,13 @@ public class Booking {
     servicesList.add(newCatering);
   }
 
-  public void addMusic(Music newMusic) {
+  public void addMusic() {
+    Music newMusic = new Music();
     servicesList.add(newMusic);
+  }
+
+  public void addFloral(FloralType floralType) {
+    Floral newFloral = new Floral(floralType);
+    servicesList.add(newFloral);
   }
 }

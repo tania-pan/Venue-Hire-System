@@ -4,14 +4,18 @@ import nz.ac.auckland.se281.Types.CateringType;
 
 public class Catering extends Service {
 
-  private String cateringName;
+  private CateringType cateringType;
 
   public Catering(CateringType cateringType, int attendeesCount) {
     super(attendeesCount * cateringType.getCostPerPerson());
-    this.cateringName = cateringType.getName();
+    this.cateringType = cateringType;
   }
 
-  public String getCateringName() {
-    return cateringName;
+  public CateringType getCateringType() {
+    return cateringType;
+  }
+
+  public int getCateringCost() {
+    return serviceCost;
   }
 }

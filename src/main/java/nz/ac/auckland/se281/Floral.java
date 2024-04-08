@@ -1,8 +1,21 @@
 package nz.ac.auckland.se281;
 
+import nz.ac.auckland.se281.Types.FloralType;
+
 public class Floral extends Service {
 
-  public Floral() {
-    super(0); // temp
+  private FloralType floralType;
+
+  public Floral(FloralType floralType) {
+    super(floralType.getCost());
+    this.floralType = floralType;
+  }
+
+  public FloralType getFloralType() {
+    return floralType;
+  }
+
+  public int getFloralCost() {
+    return serviceCost;
   }
 }
