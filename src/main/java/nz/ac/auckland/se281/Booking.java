@@ -1,6 +1,7 @@
 package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
+import nz.ac.auckland.se281.Types.CateringType;
 
 public class Booking {
 
@@ -39,5 +40,12 @@ public class Booking {
 
   public String getBookingReference() {
     return bookingReference;
+  }
+
+  // adding services
+
+  public void addCatering(CateringType cateringType, Catering newCatering) {
+    newCatering.selectCatering(cateringType);
+    servicesList.add(newCatering);
   }
 }

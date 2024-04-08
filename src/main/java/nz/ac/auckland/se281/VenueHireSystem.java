@@ -243,10 +243,20 @@ public class VenueHireSystem {
       return;
     }
 
+    // add catering to booking
+    for (Booking booking : bookingList) {
+      if (booking.getBookingReference().equals(bookingReference)) {
+        Catering newCatering = new Catering();
+        booking.addCatering(cateringType, newCatering);
+        String cateringName = newCatering.getCateringName();
+        MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Catering (" + cateringName + ")" , bookingReference);
+        return;
+      }
+    }
   }
 
   public void addServiceMusic(String bookingReference) {
-    
+
     // check if booking reference exists
     if (checkBookingReference(bookingReference) == false) {
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Music", bookingReference);
@@ -255,13 +265,12 @@ public class VenueHireSystem {
   }
 
   public void addServiceFloral(String bookingReference, FloralType floralType) {
-    
+
     // check if booking reference exists
     if (checkBookingReference(bookingReference) == false) {
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Floral", bookingReference);
       return;
     }
-    
   }
 
   public void viewInvoice(String bookingReference) {
