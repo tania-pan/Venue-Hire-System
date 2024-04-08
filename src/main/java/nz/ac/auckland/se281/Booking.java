@@ -45,7 +45,7 @@ public class Booking {
   // adding services
 
   public void addCatering(CateringType cateringType, Catering newCatering) {
-    newCatering.selectCatering(cateringType);
+    newCatering.bookCatering(cateringType, Integer.parseInt(attendeesCount));
     servicesList.add(newCatering);
   }
 }

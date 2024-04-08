@@ -246,10 +246,13 @@ public class VenueHireSystem {
     // add catering to booking
     for (Booking booking : bookingList) {
       if (booking.getBookingReference().equals(bookingReference)) {
+
         Catering newCatering = new Catering();
         booking.addCatering(cateringType, newCatering);
-        String cateringName = newCatering.getCateringName();
-        MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Catering (" + cateringName + ")" , bookingReference);
+
+        MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(
+            "Catering (" + newCatering.getCateringName() + ")", bookingReference);
+
         return;
       }
     }
