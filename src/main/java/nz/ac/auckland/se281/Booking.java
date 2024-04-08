@@ -44,8 +44,12 @@ public class Booking {
 
   // adding services
 
-  public void addCatering(CateringType cateringType, Catering newCatering) {
-    newCatering.bookCatering(cateringType, Integer.parseInt(attendeesCount));
+  public void addCatering(CateringType cateringType) {
+    Catering newCatering = new Catering(cateringType, Integer.parseInt(attendeesCount));
     servicesList.add(newCatering);
+  }
+
+  public void addMusic(Music newMusic) {
+    servicesList.add(newMusic);
   }
 }

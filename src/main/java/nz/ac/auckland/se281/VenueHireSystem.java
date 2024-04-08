@@ -246,12 +246,10 @@ public class VenueHireSystem {
     // add catering to booking
     for (Booking booking : bookingList) {
       if (booking.getBookingReference().equals(bookingReference)) {
-
-        Catering newCatering = new Catering();
-        booking.addCatering(cateringType, newCatering);
+        booking.addCatering(cateringType);
 
         MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage(
-            "Catering (" + newCatering.getCateringName() + ")", bookingReference);
+            "Catering (" + cateringType.getName() + ")", bookingReference);
 
         return;
       }
@@ -264,6 +262,19 @@ public class VenueHireSystem {
     if (checkBookingReference(bookingReference) == false) {
       MessageCli.SERVICE_NOT_ADDED_BOOKING_NOT_FOUND.printMessage("Music", bookingReference);
       return;
+    }
+
+    // add music to booking
+    for (Booking booking : bookingList) {
+      if (booking.getBookingReference().equals(bookingReference)) {
+
+        Music newMusic = new Music();
+        booking.addMusic(newMusic);
+
+        MessageCli.ADD_SERVICE_SUCCESSFUL.printMessage("Music", bookingReference);
+
+        return;
+      }
     }
   }
 

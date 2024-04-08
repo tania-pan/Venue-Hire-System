@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Venue {
 
-  protected String venueName;
-  protected String venueCode;
+  private String venueName;
+  private String venueCode;
   private int capacity;
   private int hireFee;
 
