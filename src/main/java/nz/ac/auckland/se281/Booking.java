@@ -13,7 +13,6 @@ public class Booking {
 
   private String bookingDate;
   private String bookingReference;
-  private int totalCost = 0;
 
   private ArrayList<Service> servicesList = new ArrayList<Service>();
 
@@ -56,12 +55,15 @@ public class Booking {
     return bookingReference;
   }
 
-  public int getTotalCost() {
+  public int getServicesCost() {
+
+    int servicesCost = 0;
 
     for (Service service : servicesList) {
-      totalCost += service.getServiceCost();
+      servicesCost += service.getServiceCost();
     }
-    return totalCost;
+
+    return servicesCost;
   }
 
   public ArrayList<Service> getServicesList() {

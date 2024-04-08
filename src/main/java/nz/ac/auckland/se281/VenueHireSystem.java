@@ -356,7 +356,7 @@ public class VenueHireSystem {
 
     // print bottom half of invoice
     MessageCli.INVOICE_CONTENT_BOTTOM_HALF.printMessage(
-        Integer.toString(bookingToPrint.getTotalCost()));
+        Integer.toString(bookingToPrint.getServicesCost() + bookedVenue.getHireFee()));
   }
 
   // checking if an entered number is an integer
