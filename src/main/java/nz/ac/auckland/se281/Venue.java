@@ -11,8 +11,6 @@ public class Venue {
 
   private ArrayList<Booking> bookingsList = new ArrayList<Booking>(); // list of bookings for venue
 
-  private String nextAvailableDate;
-
   public Venue(String venueName, String venueCode, int capacity, int hireFee) {
     this.venueName = venueName;
     this.venueCode = venueCode;
@@ -53,25 +51,26 @@ public class Venue {
     return bookingsList;
   }
 
-  public void updateNextAvailableDate(String systemDate) {
-    this.nextAvailableDate = systemDate;
+  public String getNextAvailableDate(String systemDate) {
+    String nextAvailableDate = systemDate;
     String parsedNAD[] = nextAvailableDate.split("/");
 
-    for (Booking booking : bookingsList) {
-      if (nextAvailableDate.equals(booking.getPartyDate())) {
-        Integer nextDay = Integer.parseInt(parsedNAD[0]) + 1;
-        parsedNAD[0] = nextDay.toString();
-        if (nextDay < 10) {
-          this.nextAvailableDate = "0" + parsedNAD[0] + "/" + parsedNAD[1] + "/" + parsedNAD[2];
-        } else {
-          this.nextAvailableDate = parsedNAD[0] + "/" + parsedNAD[1] + "/" + parsedNAD[2];
+    boolean reiterate = true;
+    while (reiterate) {
+      reiterate = false;
+      for (Booking booking : bookingsList) {
+        if (nextAvailableDate.equals(booking.getPartyDate())) {
+          Integer nextDay = Integer.parseInt(parsedNAD[0]) + 1;
+          parsedNAD[0] = nextDay.toString();
+          if (nextDay < 10) {
+            nextAvailableDate = "0" + parsedNAD[0] + "/" + parsedNAD[1] + "/" + parsedNAD[2];
+          } else {
+            nextAvailableDate = parsedNAD[0] + "/" + parsedNAD[1] + "/" + parsedNAD[2];
+          }
+          reiterate = true; // reiterate since nextAvailableDate has changed
         }
       }
     }
-  }
-
-  public String getNextAvailableDate(String systemDate) {
-    updateNextAvailableDate(systemDate);
     return nextAvailableDate;
   }
 }

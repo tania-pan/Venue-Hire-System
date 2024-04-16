@@ -190,7 +190,6 @@ public class VenueHireSystem {
 
     bookingList.add(booking);
     venueToBook.addBooking(booking);
-    venueToBook.updateNextAvailableDate(systemDate);
 
     MessageCli.MAKE_BOOKING_SUCCESSFUL.printMessage(
         booking.getBookingReference(),
