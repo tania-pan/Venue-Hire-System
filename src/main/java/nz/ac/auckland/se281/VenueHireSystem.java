@@ -329,7 +329,7 @@ public class VenueHireSystem {
     MessageCli.INVOICE_CONTENT_TOP_HALF.printMessage(
         bookingReference,
         bookingToPrint.getCustomerEmail(),
-        bookingToPrint.getbookingDate(),
+        bookingToPrint.getBookingDate(),
         bookingToPrint.getPartyDate(),
         bookingToPrint.getAttendeesCount(),
         bookedVenue.getVenueName());

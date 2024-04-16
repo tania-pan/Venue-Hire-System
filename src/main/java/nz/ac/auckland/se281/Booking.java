@@ -47,7 +47,7 @@ public class Booking {
     return attendeesCount;
   }
 
-  public String getbookingDate() {
+  public String getBookingDate() {
     return bookingDate;
   }
 
