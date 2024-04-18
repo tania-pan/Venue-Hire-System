@@ -64,7 +64,7 @@ public class VenueHireSystem {
       String venueName, String venueCode, String capacityInput, String hireFeeInput) {
 
     // checking if the inputted venue name is empty
-    if (venueName.isEmpty()) {
+    if (venueName.trim().isEmpty()) {
       MessageCli.VENUE_NOT_CREATED_EMPTY_NAME.printMessage();
       return;
     }
@@ -179,11 +179,11 @@ public class VenueHireSystem {
           options[3],
           Integer.toString(venueToBook.getCapacity()));
     } else if (Integer.parseInt(options[3]) > venueToBook.getCapacity()) {
-      options[3] = Integer.toString(venueToBook.getCapacity());
       MessageCli.BOOKING_ATTENDEES_ADJUSTED.printMessage(
           options[3],
           Integer.toString(venueToBook.getCapacity()),
           Integer.toString(venueToBook.getCapacity()));
+      options[3] = Integer.toString(venueToBook.getCapacity());
     }
 
     Booking booking = new Booking(systemDate, options[0], options[1], options[2], options[3]);
